@@ -11,7 +11,10 @@ export function StickyNote({ onClose }: { onClose: () => void }) {
   const { t } = useI18n();
   const { play } = useSounds();
   const [pos, setPos] = useState<{ x: number; y: number }>(() => ({
-    x: Math.max(24, Math.round(((typeof window !== "undefined" ? window.innerWidth : 1200) - WIDTH) / 2)),
+    x: Math.max(
+      24,
+      Math.round(((typeof window !== "undefined" ? window.innerWidth : 1200) - WIDTH) / 2),
+    ),
     y: TOP,
   }));
   const dragRef = useRef<{ dx: number; dy: number; moved: boolean } | null>(null);
@@ -19,7 +22,10 @@ export function StickyNote({ onClose }: { onClose: () => void }) {
   posRef.current = pos;
 
   useEffect(() => {
-    const centerX = Math.max(24, Math.round(((typeof window !== "undefined" ? window.innerWidth : 1200) - WIDTH) / 2));
+    const centerX = Math.max(
+      24,
+      Math.round(((typeof window !== "undefined" ? window.innerWidth : 1200) - WIDTH) / 2),
+    );
     setPos({ x: centerX, y: TOP });
   }, []);
 
@@ -28,7 +34,8 @@ export function StickyNote({ onClose }: { onClose: () => void }) {
       if (!dragRef.current) return;
       const nx = e.clientX - dragRef.current.dx;
       const ny = e.clientY - dragRef.current.dy;
-      if (Math.abs(nx - posRef.current.x) > 2 || Math.abs(ny - posRef.current.y) > 2) dragRef.current.moved = true;
+      if (Math.abs(nx - posRef.current.x) > 2 || Math.abs(ny - posRef.current.y) > 2)
+        dragRef.current.moved = true;
       setPos({ x: nx, y: ny });
     };
     const onUp = () => {
@@ -60,8 +67,11 @@ export function StickyNote({ onClose }: { onClose: () => void }) {
           if ((e.target as HTMLElement).closest("button")) return;
           dragRef.current = { dx: e.clientX - pos.x, dy: e.clientY - pos.y, moved: false };
         }}
-        className="cursor-grab active:cursor-grabbing bg-gradient-to-br from-[#fff2a8] to-[#ffe27a] text-neutral-800 p-4 pt-3 rounded-sm relative"
-        style={{ fontFamily: "'Bradley Hand', 'Comic Sans MS', cursive", boxShadow: "0 12px 30px rgba(0,0,0,0.25)" }}
+        className="cursor-grab active:cursor-grabbing bg-linear-to-br from-[#fff2a8] to-[#ffe27a] text-neutral-800 p-4 pt-3 rounded-sm relative"
+        style={{
+          fontFamily: "'Caveat', 'Segoe Script', cursive",
+          boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
+        }}
       >
         <div className="flex items-center justify-between mb-2">
           <button
@@ -81,4 +91,3 @@ export function StickyNote({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
-

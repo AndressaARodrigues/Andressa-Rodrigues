@@ -408,7 +408,6 @@ interface I18nCtx {
   lang: Lang;
   setLang: (l: Lang) => void;
   t: (k: Key) => string;
-  /** Resolve a { en, "pt-BR" } bundle in the active language. */
   tl: (v: Loc | undefined) => string;
 }
 

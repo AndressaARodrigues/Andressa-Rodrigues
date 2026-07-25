@@ -16,7 +16,7 @@ export interface WallpaperOption {
 export const WALLPAPERS: WallpaperOption[] = [
   { id: "theme", label: "Theme Color" },
   { id: "rio", label: "Rio de Janeiro", url: rio },
-  { id: "italy", label: "Amalfi Coast", url: italy },
+  { id: "italy", label: "Italy", url: italy },
   { id: "japan", label: "Mount Fuji", url: japan },
   { id: "cats", label: "Cats", url: cats },
   { id: "beach", label: "Beach", url: beach },
