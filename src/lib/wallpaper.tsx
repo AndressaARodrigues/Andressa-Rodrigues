@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import rio from "@/assets/wallpapers/wp-rio.jpg.asset.json";
-import italy from "@/assets/wallpapers/wp-italy.jpg.asset.json";
-import japan from "@/assets/wallpapers/wp-japan.jpg.asset.json";
-import bigsur from "@/assets/wallpapers/wp-bigsur.jpg.asset.json";
+import rio from "@/assets/wallpapers/wp-rio.jpg";
+import italy from "@/assets/wallpapers/wp-italy.jpg";
+import japan from "@/assets/wallpapers/wp-japan.jpg";
+import cats from "@/assets/wallpapers/wp-cats.jpg";
+import beach from "@/assets/wallpapers/wp-beach.jpg";
 
-export type WallpaperId = "theme" | "rio" | "italy" | "japan" | "bigsur";
+export type WallpaperId = "theme" | "rio" | "italy" | "japan" | "cats" | "beach";
 
 export interface WallpaperOption {
   id: WallpaperId;
@@ -14,10 +15,11 @@ export interface WallpaperOption {
 
 export const WALLPAPERS: WallpaperOption[] = [
   { id: "theme", label: "Theme Color" },
-  { id: "rio", label: "Rio de Janeiro", url: rio.url },
-  { id: "italy", label: "Amalfi Coast", url: italy.url },
-  { id: "japan", label: "Mount Fuji", url: japan.url },
-  { id: "bigsur", label: "Big Sur", url: bigsur.url },
+  { id: "rio", label: "Rio de Janeiro", url: rio },
+  { id: "italy", label: "Amalfi Coast", url: italy },
+  { id: "japan", label: "Mount Fuji", url: japan },
+  { id: "cats", label: "Cats", url: cats },
+  { id: "beach", label: "Beach", url: beach },
 ];
 
 interface Ctx {
@@ -35,14 +37,22 @@ export function WallpaperProvider({ children }: { children: ReactNode }) {
     try {
       const v = localStorage.getItem(KEY) as WallpaperId | null;
       if (v && WALLPAPERS.some((w) => w.id === v)) setIdState(v);
-    } catch { /* noop */ }
+    } catch {
+      /* noop */
+    }
   }, []);
   const setId = (v: WallpaperId) => {
     setIdState(v);
-    try { localStorage.setItem(KEY, v); } catch { /* noop */ }
+    try {
+      localStorage.setItem(KEY, v);
+    } catch {
+      /* noop */
+    }
   };
   const current = WALLPAPERS.find((w) => w.id === id) ?? WALLPAPERS[0];
-  return <WallpaperContext.Provider value={{ id, setId, current }}>{children}</WallpaperContext.Provider>;
+  return (
+    <WallpaperContext.Provider value={{ id, setId, current }}>{children}</WallpaperContext.Provider>
+  );
 }
 
 export function useWallpaper() {
