@@ -1,4 +1,13 @@
-import { LAB_CLIMA_CONTENT, PROJECT_STORY_CONTENT, SKILLS_CONTENT } from "@/lib/content";
+import {
+  LAB_CLIMA_CONTENT,
+  PIPELINE_EMENDAS_PIX_CONTENT,
+  PROJECT_STORY_CONTENT,
+  SKILLS_CONTENT,
+  TUTOR_METODO_CIENTIFICO_CONTENT,
+  NELOGICA_JOB_CONTENT,
+  COMPASS_UOL_JOB_CONTENT,
+  UNIPAMPA_JOB_CONTENT,
+} from "@/lib/content";
 
 // Virtual filesystem for the desktop portfolio
 export type FSNode = FSFolder | FSFile;
@@ -79,37 +88,37 @@ export const filesystem: FSFolder = {
       children: [
         {
           type: "folder",
-          name: "Placeholder Labs — Design Lead",
+          name: "Nelogica — Software Engineer",
           children: [
             {
               type: "file",
               name: "job.md",
               kind: "markdown",
-              content: `# Placeholder Labs\n**Design Lead · 2022 — Present**\n\nLed a team of six across web, mobile, and internal tooling. Shipped a full design system, cut onboarding time in half, and helped raise a Series B.`,
+              content: NELOGICA_JOB_CONTENT,
             },
           ],
         },
         {
           type: "folder",
-          name: "Foobar Inc — Senior Designer",
+          name: "Compass Uol — Front-end Developer",
           children: [
             {
               type: "file",
               name: "job.md",
               kind: "markdown",
-              content: `# Foobar Inc\n**Senior Designer · 2019 — 2022**\n\nRedesigned the flagship dashboard used by 200k+ users. Prototyped a real-time collab feature that became the top-requested launch of the year.`,
+              content: COMPASS_UOL_JOB_CONTENT,
             },
           ],
         },
         {
           type: "folder",
-          name: "Widget Co — Designer",
+          name: "Universidade Federal do Pampa — Full Stack Developer Intern",
           children: [
             {
               type: "file",
               name: "job.md",
               kind: "markdown",
-              content: `# Widget Co\n**Product Designer · 2016 — 2019**\n\nFirst design hire. Built brand, marketing site, and product from scratch.`,
+              content: UNIPAMPA_JOB_CONTENT,
             },
           ],
         },
@@ -127,27 +136,15 @@ export const filesystem: FSFolder = {
         },
         {
           type: "file",
-          name: "field-notes.md",
+          name: "pipeline-emendas-pix.md",
           kind: "markdown",
-          content: `# Field Notes\n\n- Ship the ugly version first.\n- Latency is a feeling, not a number.\n- If you can't explain it in one sentence, you don't know it yet.`,
+          content: PIPELINE_EMENDAS_PIX_CONTENT,
         },
         {
           type: "file",
-          name: "tinytype.md",
+          name: "tutor-scientific-method.md",
           kind: "markdown",
-          content: `# Tinytype\nA minimalist writing app for the terminal. 2k users, no ads, no accounts.`,
-        },
-        {
-          type: "file",
-          name: "shelf.md",
-          kind: "markdown",
-          content: `# Shelf\nA personal reading tracker built in a weekend. Uses only local storage.`,
-        },
-        {
-          type: "file",
-          name: "coursework.md",
-          kind: "markdown",
-          content: `# Coursework\nSelected university projects: interactive typography study, generative brand system, and an accessibility audit for a public transit app.`,
+          content: TUTOR_METODO_CIENTIFICO_CONTENT,
         },
         {
           type: "file",

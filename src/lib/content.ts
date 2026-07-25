@@ -1,4 +1,50 @@
-export const PROJECT_STORY_CONTENT = `# About This Project
+export const SKILLS_CONTENT = `# Skills
+
+**Frontend**
+Vue.js · React.js · Next.js · TypeScript · JavaScript
+
+
+**Backend**
+Node.js · Python · Flask · PHP · CodeIgniter
+
+
+**APIs**
+REST · GraphQL
+
+
+**Dados**
+MySQL · MongoDB · MariaDB
+
+
+**Cloud & DevOps**
+AWS · Docker · Kubernetes · CI/CD · Git
+
+
+**IA & Automação**
+LLM APIs · Prompt Engineering · AI-Assisted Development
+
+
+**Qualidade & Arquitetura**
+Testes (Jest, Playwright) · Code Review · System Design
+
+
+**Práticas**
+Scrum · Kanban`;
+
+export const NELOGICA_JOB_CONTENT = `# Nelogica
+**Software Engineer · 2024 — Present**
+\n\nDeveloped and maintained web applications using modern technologies. Collaborated with cross-functional teams to deliver high-quality software solutions.`;
+
+export const COMPASS_UOL_JOB_CONTENT = `# Compass Uol
+**Front-end Developer · 2023**
+\n\nDeveloped and maintained web applications using modern technologies. Collaborated with cross-functional teams to deliver high-quality software solutions.`;
+
+export const UNIPAMPA_JOB_CONTENT = `# Universidade Federal do Pampa
+**Fullstack Developer Intern · 2022 — 2023**
+\n\nDeveloped and maintained web applications using modern technologies. Collaborated with cross-functional teams to deliver high-quality software solutions.`;
+
+export const PROJECT_STORY_CONTENT = `
+# About This Project
 
 *This whole desktop didn't start as a grand plan. It started as a prompt.*
 
@@ -126,39 +172,6 @@ A few of the things I added along the way:
 - **Because everyone likes options**: settings for language, appearance, sound, and wallpaper.
 `;
 
-export const SKILLS_CONTENT = `# Skills
-
-**Frontend**
-Vue.js · React.js · Next.js · TypeScript · JavaScript
-
-
-**Backend**
-Node.js · Python · Flask · PHP · CodeIgniter
-
-
-**APIs**
-REST · GraphQL
-
-
-**Dados**
-MySQL · MongoDB · MariaDB
-
-
-**Cloud & DevOps**
-AWS · Docker · Kubernetes · CI/CD · Git
-
-
-**IA & Automação**
-LLM APIs · Prompt Engineering · AI-Assisted Development
-
-
-**Qualidade & Arquitetura**
-Testes (Jest, Playwright) · Code Review · System Design
-
-
-**Práticas**
-Scrum · Kanban`;
-
 export const LAB_CLIMA_CONTENT = `
 # Lab Clima ☀️
 
@@ -194,3 +207,72 @@ This data feeds a **VAR (Vector Autoregression)** prediction model, which foreca
 
 
 *Private repository — project images coming soon.*`;
+
+export const PIPELINE_EMENDAS_PIX_CONTENT = `
+# "Emendas Pix" Pipeline 📊
+
+*Analysis of Special Transfers in Alegrete/RS (2021–2025)*
+
+Since 2019, Constitutional Amendment No. 105 has allowed the Federal Government to transfer funds directly to municipalities without formal agreements or pre-defined purposes—known as **"Emendas Pix"**.
+
+There is plenty of autonomy but a lack of traceability: the data exists, but it is **fragmented** across dozens of entities within the Transferegov API, with no consolidated view available.
+
+This project was created to fill that gap: transforming scattered public data into a **systematized and reproducible** analysis of where funds in Alegrete/RS are actually going.
+
+## The solution 💡
+
+A data pipeline using a **Medallion architecture (Bronze → Silver → Gold)** that consolidates Transferegov action plans into a single analytical database. From this, we derive indicators of **participation, concentration, and thematic diversity** to answer three questions:
+
+- How are funds **distributed** across thematic purposes?
+- Is there **concentration** in specific areas?
+- Is this pattern **stable** over time?
+
+## How it works ⚙️
+
+- **Acquisition**: paginated collection via the Transferegov API, including provenance metadata
+- **Silver**: flattening and integration of 14 entities, data type correction, standardization, and creation of derived variables
+- **Gold**: thematic expansion, mapping of purpose to area, and aggregations by purpose, area, and fiscal year
+
+As part of the project, we also developed an **Exploratory Data Analysis** notebook based on the Gold layer, documenting the thematic aggregation process for future reference and replication.
+
+## Reproducibility
+
+The pipeline was designed to be **replicable in other municipalities**—by simply adjusting the data collection filter, it can generate the same type of thematic analysis for any city included in the Transferegov database.
+
+
+## Stack
+
+\`Python\` · \`pandas\` · \`numpy\` · \`matplotlib\` · \`Medallion Architecture\` · \`Transferegov API\` · \`Google Collab\` 
+
+
+*Academic project — open data, exploratory analysis.*`;
+
+export const TUTOR_METODO_CIENTIFICO_CONTENT = `
+# Scientific Method Intelligent Tutor 🔬
+
+*Intelligent Tutoring System (ITS) for the topic definition phase*
+
+Every researcher has experienced that moment: starting a master's degree, a head full of scattered ideas, and facing the hardest question of all—"what, exactly, is my research topic?" The idea for this project—developed as part of my **master's research**—was born from watching lab colleagues feel lost at precisely this stage.
+
+The original goal was ambitious: to cover the **entire process of building an academic research project**. However, as the project was too large for a first step, the scope was narrowed—shifting the starting point to the **research topic selection** phase within the scientific method.
+
+## The Solution 💡
+
+An intelligent tutor MVP built on a **multi-agent architecture**, where each agent plays a specific role in the student's journey:
+
+- **Tutor Agent** — manages the interaction with the student
+- **Planner** — organizes the pedagogical flow
+- **Student Model Agent** — models the student's progress and profile
+- **Content Generation Agent** — generates tailored content
+- **Feasibility Agent** — evaluates the feasibility of proposed topics
+
+## Status
+
+Project currently **under development** — the focus is on validating the MVP for the topic definition phase before expanding to other stages of the scientific methodology.
+
+## Stack
+
+\`Python\` ·  \`LangGraph\` · \`Chainlit\` · \`Ollama\` · \`SQLite\`
+
+
+*Master's research in progress.*`;
