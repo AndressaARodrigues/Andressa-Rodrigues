@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { useWindows, type WindowState } from "./WindowManager";
 import { cn } from "@/lib/utils";
 import { LAYERS } from "@/lib/layers";
@@ -34,8 +40,20 @@ export function Window({ window: w, children }: { window: WindowState; children:
   };
 
   const style: React.CSSProperties = w.maximized
-    ? { top: 28, left: 0, width: "100vw", height: "calc(100vh - 28px - 96px)", zIndex: Math.max(LAYERS.window, w.z) }
-    : { top: w.y, left: w.x, width: w.width, height: w.height, zIndex: Math.max(LAYERS.window, w.z) };
+    ? {
+        top: 28,
+        left: 0,
+        width: "100vw",
+        height: "calc(100vh - 28px - 96px)",
+        zIndex: Math.max(LAYERS.window, w.z),
+      }
+    : {
+        top: w.y,
+        left: w.x,
+        width: w.width,
+        height: w.height,
+        zIndex: Math.max(LAYERS.window, w.z),
+      };
 
   if (w.minimized) return null;
 
@@ -51,7 +69,7 @@ export function Window({ window: w, children }: { window: WindowState; children:
       onMouseDown={() => focus(w.id)}
     >
       <div
-        className="h-8 flex items-center px-3 gap-2 bg-gradient-to-b from-white/90 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 border-b border-black/10 dark:border-white/10 select-none cursor-grab active:cursor-grabbing"
+        className="h-8 flex items-center px-3 gap-2 bg-linear-to-b from-white/90 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 border-b border-black/10 dark:border-white/10 select-none cursor-grab active:cursor-grabbing"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -66,7 +84,9 @@ export function Window({ window: w, children }: { window: WindowState; children:
             }}
             className="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-95 flex items-center justify-center"
           >
-            <span className="opacity-0 group-hover:opacity-100 text-[8px] leading-none text-black/60">×</span>
+            <span className="opacity-0 group-hover:opacity-100 text-[8px] leading-none text-black/60">
+              ×
+            </span>
           </button>
           <button
             aria-label="Minimize"
@@ -76,7 +96,9 @@ export function Window({ window: w, children }: { window: WindowState; children:
             }}
             className="w-3 h-3 rounded-full bg-[#febc2e] hover:brightness-95 flex items-center justify-center"
           >
-            <span className="opacity-0 group-hover:opacity-100 text-[8px] leading-none text-black/60">−</span>
+            <span className="opacity-0 group-hover:opacity-100 text-[8px] leading-none text-black/60">
+              −
+            </span>
           </button>
           <button
             aria-label="Maximize"
@@ -86,10 +108,14 @@ export function Window({ window: w, children }: { window: WindowState; children:
             }}
             className="w-3 h-3 rounded-full bg-[#28c840] hover:brightness-95 flex items-center justify-center"
           >
-            <span className="opacity-0 group-hover:opacity-100 text-[8px] leading-none text-black/60">+</span>
+            <span className="opacity-0 group-hover:opacity-100 text-[8px] leading-none text-black/60">
+              +
+            </span>
           </button>
         </div>
-        <div className="flex-1 text-center text-xs font-medium text-neutral-700 dark:text-neutral-200 truncate">{w.title}</div>
+        <div className="flex-1 text-center text-xs font-medium text-neutral-700 dark:text-neutral-200 truncate">
+          {w.title}
+        </div>
         <div className="w-14" />
       </div>
       <div className="flex-1 min-h-0 overflow-hidden bg-background">{children}</div>
@@ -108,4 +134,3 @@ export function useEscapeClose(id: string) {
     return () => window.removeEventListener("keydown", onKey);
   }, [active, id, close]);
 }
-

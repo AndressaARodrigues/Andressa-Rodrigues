@@ -113,7 +113,7 @@ export function Finder({ window: w }: { window: WindowState }) {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder={t("search")}
+              placeholder={t("searchPlaceholder")}
               className="bg-transparent outline-none text-xs w-28"
             />
           </div>

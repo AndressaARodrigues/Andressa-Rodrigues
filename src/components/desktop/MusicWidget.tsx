@@ -34,7 +34,9 @@ export function useMusicWidgetVisible() {
 export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const { track, playing, progress, duration, hasAudio, artworks, toggle, next, prev } = useMusic();
   const { open } = useWindows();
-  const [width, setWidth] = useState(() => (typeof window !== "undefined" ? window.innerWidth : 1200));
+  const [width, setWidth] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth : 1200,
+  );
 
   useEffect(() => {
     const onResize = () => setWidth(window.innerWidth);
@@ -60,7 +62,10 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
         <button
           type="button"
           onClick={openWindow}
-          className={cn("group relative w-14 h-14 rounded-lg bg-gradient-to-br shadow-md flex items-center justify-center overflow-hidden shrink-0", track.color)}
+          className={cn(
+            "group relative w-14 h-14 rounded-lg bg-linear-to-br shadow-md flex items-center justify-center overflow-hidden shrink-0",
+            track.color,
+          )}
           aria-label="Open Music"
         >
           {artwork ? (
@@ -71,7 +76,11 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
           {playing && (
             <div className="absolute inset-0 flex items-end gap-0.5 p-1.5 bg-black/20">
               {[0, 1, 2, 3, 4].map((i) => (
-                <span key={i} className="flex-1 bg-white/80 rounded-sm" style={{ animation: `eq 0.8s ease-in-out ${i * 0.1}s infinite`, height: "30%" }} />
+                <span
+                  key={i}
+                  className="flex-1 bg-white/80 rounded-sm"
+                  style={{ animation: `eq 0.8s ease-in-out ${i * 0.1}s infinite`, height: "30%" }}
+                />
               ))}
             </div>
           )}
@@ -80,7 +89,9 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
           </div>
         </button>
         <button type="button" onClick={openWindow} className="flex-1 min-w-0 text-left">
-          <div className="text-[13px] font-semibold truncate leading-tight hover:underline">{track.title}</div>
+          <div className="text-[13px] font-semibold truncate leading-tight hover:underline">
+            {track.title}
+          </div>
           <div className="text-[11px] text-muted-foreground truncate">{track.artist}</div>
           <div className="mt-1.5 h-0.5 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
             <div className="h-full bg-pink-500 transition-[width]" style={{ width: `${pct}%` }} />
@@ -99,7 +110,10 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
         </button>
       </div>
       <div className="flex items-center justify-center gap-4 pb-3">
-        <button onClick={prev} className="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10">
+        <button
+          onClick={prev}
+          className="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10"
+        >
           <SkipBack className="w-4 h-4" />
         </button>
         <button
@@ -110,7 +124,10 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
         >
           {playing ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
         </button>
-        <button onClick={next} className="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10">
+        <button
+          onClick={next}
+          className="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10"
+        >
           <SkipForward className="w-4 h-4" />
         </button>
       </div>
@@ -118,4 +135,3 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
     </div>
   );
 }
-

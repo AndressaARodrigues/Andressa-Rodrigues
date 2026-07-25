@@ -49,7 +49,7 @@ export function MenuBar({
     settings: t("settings"),
     imageviewer: t("adventures"),
   };
-  const activeName = active ? APP_LABEL[active.appId] ?? t("portfolioName") : t("portfolioName");
+  const activeName = active ? (APP_LABEL[active.appId] ?? t("portfolioName")) : t("portfolioName");
   const timeStr = time.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   const dateStr = time.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
 
@@ -68,7 +68,7 @@ export function MenuBar({
             <Apple size={15} className="drop-shadow" />
           </button>
           {appleOpen && (
-            <div className="absolute left-0 top-6 min-w-[240px] rounded-md bg-white/90 dark:bg-neutral-800/95 backdrop-blur-xl text-neutral-900 dark:text-neutral-100 text-[13px] shadow-2xl border border-black/10 dark:border-white/10 py-1">
+            <div className="absolute left-0 top-6 min-w-60 rounded-md bg-white/90 dark:bg-neutral-800/95 backdrop-blur-xl text-neutral-900 dark:text-neutral-100 text-[13px] shadow-2xl border border-black/10 dark:border-white/10 py-1">
               <div className="px-3 py-1.5 opacity-60 cursor-default">{t("aboutThisPortfolio")}</div>
               <div className="my-1 h-px bg-black/10 dark:bg-white/10" />
               <button
@@ -131,7 +131,11 @@ export function MenuBar({
         </button>
         <Battery size={16} />
         <Wifi size={14} />
-        <button onClick={onOpenSpotlight} aria-label="Spotlight Search" className="opacity-90 hover:opacity-100">
+        <button
+          onClick={onOpenSpotlight}
+          aria-label="Spotlight Search"
+          className="opacity-90 hover:opacity-100"
+        >
           <Search size={13} />
         </button>
         <span className="tabular-nums">{dateStr}</span>
@@ -140,4 +144,3 @@ export function MenuBar({
     </div>
   );
 }
-

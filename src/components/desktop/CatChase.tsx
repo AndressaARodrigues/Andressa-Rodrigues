@@ -70,13 +70,13 @@ export function CatChase() {
   if (!enabled) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[950]">
+    <div className="pointer-events-none fixed inset-0 z-950">
       <div
         ref={yarnRef}
-        className="absolute left-0 top-0 h-5 w-5 rounded-full bg-gradient-to-br from-rose-200 to-pink-500 shadow-[0_0_18px_rgba(236,72,153,0.35)]"
+        className="absolute left-0 top-0 h-5 w-5 rounded-full bg-linear-to-br from-rose-200 to-pink-500 shadow-[0_0_18px_rgba(236,72,153,0.35)]"
       >
         <div className="absolute inset-1 rounded-full border border-white/70" />
-        <div className="absolute left-1/2 top-1/2 h-10 w-px -translate-x-1/2 -translate-y-full bg-gradient-to-b from-pink-300/0 via-pink-300/60 to-pink-100/0" />
+        <div className="absolute left-1/2 top-1/2 h-10 w-px -translate-x-1/2 -translate-y-full bg-linear-to-b from-pink-300/0 via-pink-300/60 to-pink-100/0" />
       </div>
       <div
         ref={catRef}
@@ -90,4 +90,3 @@ export function CatChase() {
     </div>
   );
 }
-

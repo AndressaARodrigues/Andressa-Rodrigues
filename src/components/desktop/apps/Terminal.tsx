@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { filesystem, findNodeByPath, type FSFolder } from "@/lib/filesystem";
+import { useI18n } from "@/lib/i18n";
 import { useWindows, type WindowState } from "../WindowManager";
 
 interface Line {
@@ -36,6 +37,7 @@ const FORTUNES = [
 
 export function Terminal({ window: w }: { window: WindowState }) {
   const { open } = useWindows();
+  const { tl } = useI18n();
   const [lines, setLines] = useState<Line[]>([
     { kind: "out", text: "portfolio-os v1.0.0 — type 'help' to get started" },
   ]);
@@ -131,7 +133,7 @@ export function Terminal({ window: w }: { window: WindowState }) {
         const child = (cwdNode as FSFolder).children.find((c) => c.name === target);
         if (!child) err(`cat: no such file: ${target}`);
         else if (child.type !== "file") err(`cat: ${target}: Is a directory`);
-        else out(child.content ?? "(binary file)");
+        else out(child.content ? tl(child.content) : "(binary file)");
         break;
       }
       case "open": {
@@ -140,14 +142,19 @@ export function Terminal({ window: w }: { window: WindowState }) {
         else if (a === "mail") open("mail");
         else if (a === "pdf") open("pdf");
         else if (a === "solitaire") open("solitaire");
-        else { err(`open: unknown app: ${a}`); break; }
+        else {
+          err(`open: unknown app: ${a}`);
+          break;
+        }
         out(`Opening ${a}…`);
         break;
       }
       case "cowsay": {
         const msg = args.join(" ") || "moo";
         const bar = "-".repeat(msg.length + 2);
-        art(` ${bar}\n< ${msg} >\n ${bar}\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||`);
+        art(
+          ` ${bar}\n< ${msg} >\n ${bar}\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||`,
+        );
         break;
       }
       case "fortune":
@@ -158,7 +165,9 @@ export function Terminal({ window: w }: { window: WindowState }) {
         setMatrix(true);
         break;
       case "coffee":
-        art("    ( (\n     ) )\n  ..........\n  |        |]\n  \\        /\n   `------'\n\nHere's your coffee ☕");
+        art(
+          "    ( (\n     ) )\n  ..........\n  |        |]\n  \\        /\n   `------'\n\nHere's your coffee ☕",
+        );
         break;
       case "sudo":
         err("sudo: permission denied. Nice try.");
@@ -222,8 +231,13 @@ export function Terminal({ window: w }: { window: WindowState }) {
                 e.preventDefault();
                 if (histIdx < 0) return;
                 const ni = histIdx + 1;
-                if (ni >= history.length) { setHistIdx(-1); setInput(""); }
-                else { setHistIdx(ni); setInput(history[ni]); }
+                if (ni >= history.length) {
+                  setHistIdx(-1);
+                  setInput("");
+                } else {
+                  setHistIdx(ni);
+                  setInput(history[ni]);
+                }
               }
             }}
             className="flex-1 bg-transparent outline-none caret-green-400"
