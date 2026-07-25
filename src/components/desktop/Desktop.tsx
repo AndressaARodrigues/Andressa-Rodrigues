@@ -131,14 +131,14 @@ function Wallpaper() {
         className={cn(
           "absolute inset-0 transition-opacity duration-700",
           !isImage && resolved === "dark" ? "opacity-0" : !isImage ? "opacity-100" : "opacity-0",
-          "bg-gradient-to-br from-[#ffd1dc] via-[#f4a7bc] to-[#c48a8a]",
+          "bg-linear-to-br from-[#ffd1dc] via-[#e490a6] to-[#bb7272]",
         )}
       />
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-700",
           !isImage && resolved === "dark" ? "opacity-100" : "opacity-0",
-          "bg-gradient-to-br from-[#1c1b2e] via-[#3b2b4a] to-[#5a2a3a]",
+          "bg-linear-to-br from-[#1c1b2e] via-[#3b2b4a] to-[#5a2a3a]",
         )}
       />
       {isImage && (
@@ -198,7 +198,18 @@ function renderApp(appId: string, w: import("@/components/desktop/WindowManager"
   }
 }
 
-const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+const KONAMI = [
+  "ArrowUp",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowRight",
+  "b",
+  "a",
+];
 
 function KonamiListener() {
   const { open } = useWindows();
@@ -229,14 +240,18 @@ function KonamiListener() {
 
   return (
     <div
-      className={cn("pointer-events-none fixed inset-0 transition-opacity duration-500", party ? "opacity-100" : "opacity-0")}
+      className={cn(
+        "pointer-events-none fixed inset-0 transition-opacity duration-500",
+        party ? "opacity-100" : "opacity-0",
+      )}
       style={{ zIndex: LAYERS.overlay }}
     >
-      <div className="absolute inset-0 bg-gradient-to-tr from-pink-500/40 via-yellow-400/30 to-cyan-400/40 animate-pulse" />
+      <div className="absolute inset-0 bg-linear-to-tr from-pink-500/40 via-yellow-400/30 to-cyan-400/40 animate-pulse" />
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="text-6xl font-black text-white drop-shadow-2xl tracking-widest">★ CHEAT MODE ★</div>
+        <div className="text-6xl font-black text-white drop-shadow-2xl tracking-widest">
+          ★ CHEAT MODE ★
+        </div>
       </div>
     </div>
   );
 }
-

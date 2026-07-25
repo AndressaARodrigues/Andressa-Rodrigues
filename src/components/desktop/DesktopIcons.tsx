@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 import { useWindows } from "./WindowManager";
-import { Trash2, Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon } from "lucide-react";
 import { filesystem, type FSNode } from "@/lib/filesystem";
 import { cn } from "@/lib/utils";
 import { PinkFolder } from "./PinkFolder";
@@ -20,15 +20,36 @@ interface IconPos {
   kind: "fs" | "trash";
 }
 
+type IconKind = "trash" | "folder" | "pdf" | "image" | "text";
+
 const START_X = 40;
 const START_Y = 60;
 const GAP_Y = 96;
+
+function resolveKind(icon: IconPos): IconKind {
+  if (icon.kind === "trash") return "trash";
+  if (icon.node?.type === "folder") return "folder";
+  if (icon.node?.kind === "pdf") return "pdf";
+  if (icon.node?.kind === "image") return "image";
+  return "text";
+}
 
 export function DesktopIcons() {
   const { open } = useWindows();
   const { t } = useI18n();
   const { resolved } = useTheme();
   const { play } = useSounds();
+
+  type TKey = Parameters<typeof t>[0];
+
+  const NAME_KEYS: Record<string, TKey> = {
+    demo: "demo",
+    projects: "projects",
+    adventures: "adventures",
+    "resume.pdf": "resumePdf",
+    "skills.md": "skillsMd",
+    Trash: "trash",
+  };
 
   const [selected, setSelected] = useState<string | null>(null);
   const [icons, setIcons] = useState<IconPos[]>(() => {
@@ -55,47 +76,59 @@ export function DesktopIcons() {
     return () => window.removeEventListener("mousedown", onClick);
   }, []);
 
-  const openIcon = (icon: IconPos) => {
-    if (icon.kind === "trash") return;
-    const node = icon.node;
-    if (!node) return;
-    if (node.type === "folder") open("finder", { title: node.name, data: { path: [node.name] } });
-    else if (node.kind === "pdf") open("pdf", { title: node.name });
-    else if (node.kind === "image") open("imageviewer", { title: node.name });
-    else open("readme", { title: node.name, data: { path: [node.name] } });
-  };
-
-  const displayName = (name: string) => {
-    if (name === "demo") return t("demo");
-    if (name === "projects") return t("projects");
-    if (name === "adventures") return t("adventures");
-    if (name === "resume.pdf") return t("resumePdf");
-    if (name === "Trash") return t("trash");
-    return name;
-  };
-
   const iconTone = resolved === "dark" ? "text-white" : "text-neutral-900";
   const labelTone = "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]";
   const shadow =
     resolved === "dark"
-      ? "drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]"
-      : "drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]";
+      ? "drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]"
+      : "drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]";
+
+  const ICON_CONFIG: Record<
+    IconKind,
+    {
+      render: () => ReactElement;
+      open?: (node: FSNode) => void;
+    }
+  > = {
+    trash: {
+      render: () => <img src={TrashIcon} alt="Trash" className={cn("size-12", shadow)} />,
+    },
+    folder: {
+      render: () => <PinkFolder className={cn("w-14 h-12", shadow)} />,
+      open: (node) => open("finder", { title: node.name, data: { path: [node.name] } }),
+    },
+    pdf: {
+      render: () => <FilePdf className={cn("w-10 h-10", iconTone, shadow)} />,
+      open: (node) => open("pdf", { title: node.name }),
+    },
+    image: {
+      render: () => <ImageIcon className={cn("w-10 h-10", iconTone, shadow)} />,
+      open: (node) => open("imageviewer", { title: node.name }),
+    },
+    text: {
+      render: () => <FileText className={cn("w-10 h-10", iconTone, shadow)} />,
+      open: (node) => open("readme", { title: node.name, data: { path: [node.name] } }),
+    },
+  };
+
+  const openIcon = (icon: IconPos) => {
+    if (icon.kind === "trash") return;
+    const node = icon.node;
+    if (!node) return;
+    ICON_CONFIG[resolveKind(icon)].open?.(node);
+  };
+
+  const displayName = (name: string) => {
+    const key = NAME_KEYS[name];
+    return key ? t(key) : name;
+  };
 
   return (
     <>
       {icons.map((icon) => {
         const isSelected = selected === icon.name;
-        const renderIcon = () => {
-          if (icon.kind === "trash")
-            return <img src={TrashIcon} alt="Trash" className={cn("size-12", shadow)} />;
-          if (icon.node?.type === "folder")
-            return <PinkFolder className={cn("w-12 h-10", shadow)} />;
-          if (icon.node?.kind === "pdf")
-            return <FilePdf className={cn("w-9 h-9", iconTone, shadow)} />;
-          if (icon.node?.kind === "image")
-            return <ImageIcon className={cn("w-9 h-9", iconTone, shadow)} />;
-          return <FileText className={cn("w-9 h-9", iconTone, shadow)} />;
-        };
+        const kind = resolveKind(icon);
+
         return (
           <button
             key={icon.name}
@@ -126,16 +159,15 @@ export function DesktopIcons() {
               );
             }}
             onPointerUp={(e) => {
-              try {
-                (e.target as HTMLElement).releasePointerCapture(e.pointerId);
-              } catch {
-                /* noop */
-              }
+              const el = e.target as HTMLElement;
+              if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
               drag.current = null;
             }}
             onDoubleClick={() => openIcon(icon)}
           >
-            <div className="w-12 h-12 flex items-center justify-center">{renderIcon()}</div>
+            <div className="w-12 h-12 flex items-center justify-center">
+              {ICON_CONFIG[kind].render()}
+            </div>
             <div className={cn("text-xs px-1 rounded text-center leading-tight", labelTone)}>
               {displayName(icon.name)}
             </div>

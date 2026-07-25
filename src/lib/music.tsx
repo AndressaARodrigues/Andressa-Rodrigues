@@ -14,7 +14,7 @@ export const TRACKS: Track[] = [
     id: "1",
     title: "Praise You",
     artist: "Fatboy Slim",
-    duration: 60,
+    duration: 30,
     color: "from-amber-300 to-orange-500",
   },
   {

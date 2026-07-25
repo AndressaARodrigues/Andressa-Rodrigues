@@ -18,6 +18,7 @@ const DICT = {
     trash: "Trash",
     adventures: "Adventures",
     projects: "Projects",
+    skills: "Skills",
     demo: "Experience",
     home: "Home",
     portfolioName: "Andressa's Portfolio",
@@ -31,10 +32,13 @@ const DICT = {
     typeMessage: "Type a message...",
     sending: "Sending...",
     delivered: "Delivered",
-    autoReply: "Thanks for reaching out! I'll reply from andressa.rodrigues19@outlook.com within 1-2 days.",
+    autoReply:
+      "Thanks for reaching out! I'll reply from andressa.rodrigues19@outlook.com within 1-2 days.",
     playlist: "Playlist",
     resumePdf: "resume.pdf",
-    stickyWelcome: "Hi, I'm Andressa 👋\nWelcome to my desktop. Open the apps, explore the folders, and try the Terminal. Enjoy!",
+    skillsMd: "skills.md",
+    stickyWelcome:
+      "Hi, I'm Andressa 👋\nWelcome to my desktop. Open the apps, explore the folders, and try the Terminal. Enjoy!",
     spotlightPlaceholder: "Spotlight Search",
     spotlightNoResults: "No results",
     sound: "Sound",
@@ -60,7 +64,6 @@ const DICT = {
     document: "Document",
     photo: "Photo",
     game: "Game",
-    skills: "Skills",
     projectStory: "Project Story",
     catMode: "Cat mode",
     catModeDesc: "Replace the cursor with a yarn ball and let the cat chase it across the desktop.",
@@ -91,6 +94,7 @@ I build interfaces that feel alive - expressive, calm, and a little playful. I l
     trash: "Lixeira",
     adventures: "Adventures",
     projects: "Projetos",
+    skills: "Habilidades",
     demo: "Experiência",
     home: "Início",
     portfolioName: "Portfólio da Andressa",
@@ -104,10 +108,13 @@ I build interfaces that feel alive - expressive, calm, and a little playful. I l
     typeMessage: "Digite uma mensagem...",
     sending: "Enviando...",
     delivered: "Entregue",
-    autoReply: "Obrigada pelo contato! Responderei em 1-2 dias pelo andressa.rodrigues19@outlook.com.",
+    autoReply:
+      "Obrigada pelo contato! Responderei em 1-2 dias pelo andressa.rodrigues19@outlook.com.",
     playlist: "Playlist",
     resumePdf: "curriculo.pdf",
-    stickyWelcome: "Oi, eu sou a Andressa 👋\nBem-vindo(a) ao meu desktop. Abra os apps, explore as pastas e experimente o Terminal. Divirta-se!",
+    skillsMd: "Habilidades.md",
+    stickyWelcome:
+      "Oi, eu sou a Andressa 👋\nBem-vindo(a) ao meu desktop. Abra os apps, explore as pastas e experimente o Terminal. Divirta-se!",
     spotlightPlaceholder: "Busca do Spotlight",
     spotlightNoResults: "Sem resultados",
     sound: "Som",
@@ -133,7 +140,6 @@ I build interfaces that feel alive - expressive, calm, and a little playful. I l
     document: "Documento",
     photo: "Foto",
     game: "Jogo",
-    skills: "Skills",
     projectStory: "História do Projeto",
     catMode: "Modo gato",
     catModeDesc: "Troca o cursor por uma bolinha de lã e deixa o gato persegui-la pelo desktop.",
@@ -167,7 +173,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" && (localStorage.getItem(KEY) as Lang | null)) || "en";
+    const stored =
+      (typeof window !== "undefined" && (localStorage.getItem(KEY) as Lang | null)) || "en";
     setLangState(stored);
   }, []);
 
@@ -190,4 +197,3 @@ export function useI18n() {
   if (!ctx) throw new Error("useI18n outside I18nProvider");
   return ctx;
 }
-

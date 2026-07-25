@@ -1,4 +1,4 @@
-import { PROJECT_STORY_MARKDOWN, SKILLS_MARKDOWN } from "@/lib/content";
+import { LAB_CLIMA_CONTENT, PROJECT_STORY_CONTENT, SKILLS_CONTENT } from "@/lib/content";
 
 // Virtual filesystem for the desktop portfolio
 export type FSNode = FSFolder | FSFile;
@@ -27,12 +27,36 @@ export interface Picture {
 }
 
 export const PICTURES: Picture[] = [
-  { id: "p1", src: "https://picsum.photos/seed/andressa-work-1/900/1200", caption: "Design sprint at the studio" },
-  { id: "p2", src: "https://picsum.photos/seed/andressa-uni-1/900/1200", caption: "Graduation day, UFRGS" },
-  { id: "p3", src: "https://picsum.photos/seed/andressa-event-1/1200/900", caption: "Speaking at UX Porto Alegre" },
-  { id: "p4", src: "https://picsum.photos/seed/andressa-work-2/1200/900", caption: "Team offsite, coastal Brazil" },
-  { id: "p5", src: "https://picsum.photos/seed/andressa-uni-2/900/1200", caption: "Late nights at the lab" },
-  { id: "p6", src: "https://picsum.photos/seed/andressa-event-2/1200/900", caption: "Meetup dinner with the community" },
+  {
+    id: "p1",
+    src: "https://picsum.photos/seed/andressa-work-1/900/1200",
+    caption: "Design sprint at the studio",
+  },
+  {
+    id: "p2",
+    src: "https://picsum.photos/seed/andressa-uni-1/900/1200",
+    caption: "Graduation day, UFRGS",
+  },
+  {
+    id: "p3",
+    src: "https://picsum.photos/seed/andressa-event-1/1200/900",
+    caption: "Speaking at UX Porto Alegre",
+  },
+  {
+    id: "p4",
+    src: "https://picsum.photos/seed/andressa-work-2/1200/900",
+    caption: "Team offsite, coastal Brazil",
+  },
+  {
+    id: "p5",
+    src: "https://picsum.photos/seed/andressa-uni-2/900/1200",
+    caption: "Late nights at the lab",
+  },
+  {
+    id: "p6",
+    src: "https://picsum.photos/seed/andressa-event-2/1200/900",
+    caption: "Meetup dinner with the community",
+  },
 ];
 
 export const filesystem: FSFolder = {
@@ -43,6 +67,11 @@ export const filesystem: FSFolder = {
       type: "file",
       name: "readme.md",
       kind: "markdown",
+    },
+    {
+      type: "file",
+      name: "resume.pdf",
+      kind: "pdf",
     },
     {
       type: "folder",
@@ -92,9 +121,9 @@ export const filesystem: FSFolder = {
       children: [
         {
           type: "file",
-          name: "on-craft.md",
+          name: "lab-clima.md",
           kind: "markdown",
-          content: `# On Craft\n*Sample Substack post*\n\nThe best software feels like a hand-tool: honest, worn, particular. It carries the fingerprints of the people who made it.`,
+          content: LAB_CLIMA_CONTENT,
         },
         {
           type: "file",
@@ -122,15 +151,9 @@ export const filesystem: FSFolder = {
         },
         {
           type: "file",
-          name: "skills.md",
-          kind: "markdown",
-          content: SKILLS_MARKDOWN,
-        },
-        {
-          type: "file",
           name: "about-this-project.md",
           kind: "markdown",
-          content: PROJECT_STORY_MARKDOWN,
+          content: PROJECT_STORY_CONTENT,
         },
         {
           type: "file",
@@ -155,8 +178,9 @@ export const filesystem: FSFolder = {
     },
     {
       type: "file",
-      name: "resume.pdf",
-      kind: "pdf",
+      name: "skills.md",
+      kind: "markdown",
+      content: SKILLS_CONTENT,
     },
   ],
 };
