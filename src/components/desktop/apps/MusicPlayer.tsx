@@ -9,7 +9,11 @@ export function MusicPlayer() {
     useMusic();
   const { t } = useI18n();
 
-  useEffect(() => pause, [pause]);
+  useEffect(() => {
+    return () => {
+      pause();
+    };
+  }, []);
 
   const pct = track.duration ? (progress / track.duration) * 100 : 0;
   const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;

@@ -1,4 +1,13 @@
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useSounds } from "@/lib/sounds";
 
 export interface Track {
@@ -126,7 +135,7 @@ interface ITunesResponse {
 
 export function MusicProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [index, setIndex] = useState(1); // default: Praise You — Fatboy Slim
+  const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(30);
@@ -195,36 +204,65 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (audio) audio.muted = muted;
   }, [muted]);
 
-  const value: MusicCtx = {
-    track,
-    index,
-    playing,
-    progress,
-    duration,
-    hasAudio: !!previews[track.id],
-    artworks,
-    toggle: () => setPlaying((p) => !p),
-    play: () => setPlaying(true),
-    pause: () => setPlaying(false),
-    next: () => {
-      setIndex((i) => (i + 1) % TRACKS.length);
-      setProgress(0);
-    },
-    prev: () => {
-      setIndex((i) => (i - 1 + TRACKS.length) % TRACKS.length);
-      setProgress(0);
-    },
-    select: (i) => {
-      setIndex(i);
-      setProgress(0);
-      setPlaying(true);
-    },
-    seek: (p) => {
+  const toggle = useCallback(() => setPlaying((p) => !p), []);
+  const play = useCallback(() => setPlaying(true), []);
+  const pause = useCallback(() => setPlaying(false), []);
+  const next = useCallback(() => {
+    setIndex((i) => (i + 1) % TRACKS.length);
+    setProgress(0);
+  }, []);
+  const prev = useCallback(() => {
+    setIndex((i) => (i - 1 + TRACKS.length) % TRACKS.length);
+    setProgress(0);
+  }, []);
+  const select = useCallback((i: number) => {
+    setIndex(i);
+    setProgress(0);
+    setPlaying(true);
+  }, []);
+  const seek = useCallback(
+    (p: number) => {
       const audio = audioRef.current;
       if (audio) audio.currentTime = Math.max(0, Math.min(duration, p));
       setProgress(p);
     },
-  };
+    [duration],
+  );
+
+  const value = useMemo<MusicCtx>(
+    () => ({
+      track,
+      index,
+      playing,
+      progress,
+      duration,
+      hasAudio: !!previews[track.id],
+      artworks,
+      toggle,
+      play,
+      pause,
+      next,
+      prev,
+      select,
+      seek,
+    }),
+    [
+      track,
+      index,
+      playing,
+      progress,
+      duration,
+      previews,
+      artworks,
+      toggle,
+      play,
+      pause,
+      next,
+      prev,
+      select,
+      seek,
+    ],
+  );
 
   return (
     <MusicContext.Provider value={value}>

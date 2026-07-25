@@ -1,20 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMusic } from "@/lib/music";
 import { Play, Pause, SkipBack, SkipForward, Music as MusicIcon, X, Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWindows } from "@/components/desktop/WindowManager";
 import { LAYERS } from "@/lib/layers";
 
+const VISIBLE_KEY = "music-widget-visible";
+
 const WIDTH = 340;
 const HEIGHT = 130;
 const RIGHT = 24;
 const TOP = 44 + 220 + 12;
 
+interface Pos {
+  x: number;
+  y: number;
+}
+
+function anchorTopRight(): Pos {
+  const vw = document.documentElement.clientWidth;
+  return { x: Math.max(RIGHT, vw - WIDTH - RIGHT), y: TOP };
+}
+
 export function useMusicWidgetVisible() {
+  const { pause } = useMusic();
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("music-widget-visible");
+      const raw = localStorage.getItem(VISIBLE_KEY);
       if (raw !== null) setVisible(raw === "1");
     } catch {
       /* noop */
@@ -22,8 +35,9 @@ export function useMusicWidgetVisible() {
   }, []);
   const set = (v: boolean) => {
     setVisible(v);
+    if (!v) pause();
     try {
-      localStorage.setItem("music-widget-visible", v ? "1" : "0");
+      localStorage.setItem(VISIBLE_KEY, v ? "1" : "0");
     } catch {
       /* noop */
     }
@@ -34,12 +48,20 @@ export function useMusicWidgetVisible() {
 export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const { track, playing, progress, duration, hasAudio, artworks, toggle, next, prev } = useMusic();
   const { open } = useWindows();
-  const [width, setWidth] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth : 1200,
-  );
+
+  const [pos, setPos] = useState<Pos | null>(null);
+  const dragged = useRef(false);
+  const drag = useRef<{ dx: number; dy: number } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onResize = () => setWidth(window.innerWidth);
+    setPos(anchorTopRight());
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (!dragged.current) setPos(anchorTopRight());
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -47,18 +69,42 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
   const pct = duration ? (progress / duration) * 100 : 0;
   const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
   const artwork = artworks[track.id];
-  const x = Math.max(24, width - WIDTH - RIGHT);
 
-  if (!visible) return null;
+  if (!visible || !pos) return null;
 
   const openWindow = () => open("music", { width: 720, height: 520 });
 
   return (
     <div
-      style={{ left: x, top: TOP, width: WIDTH, zIndex: LAYERS.widget + 1 }}
-      className="fixed rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-2xl text-foreground overflow-hidden select-none"
+      ref={containerRef}
+      style={{ left: pos.x, top: pos.y, width: WIDTH, zIndex: LAYERS.widget + 1 }}
+      className="fixed rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-2xl text-foreground overflow-hidden select-none animate-scale-in"
     >
-      <div className="flex items-center gap-3 p-3">
+      <div
+        className="flex items-center gap-3 p-3 cursor-grab active:cursor-grabbing"
+        onPointerDown={(e) => {
+          if ((e.target as HTMLElement).closest("button")) return;
+          (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+          const rect = containerRef.current?.getBoundingClientRect();
+          drag.current = {
+            dx: e.clientX - (rect?.left ?? pos.x),
+            dy: e.clientY - (rect?.top ?? pos.y),
+          };
+        }}
+        onPointerMove={(e) => {
+          if (!drag.current) return;
+          dragged.current = true;
+          setPos({ x: e.clientX - drag.current.dx, y: e.clientY - drag.current.dy });
+        }}
+        onPointerUp={(e) => {
+          try {
+            (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+          } catch {
+            /* noop */
+          }
+          drag.current = null;
+        }}
+      >
         <button
           type="button"
           onClick={openWindow}

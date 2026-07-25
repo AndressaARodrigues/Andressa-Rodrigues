@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Cloud, Sun, CloudRain, CloudSnow, CloudFog, CloudLightning, Moon } from "lucide-react";
 import { LAYERS } from "@/lib/layers";
@@ -8,6 +8,11 @@ const HEIGHT = 220;
 const RIGHT = 24;
 const TOP = 44;
 
+interface Pos {
+  x: number;
+  y: number;
+}
+
 interface WeatherData {
   temp: number;
   code: number;
@@ -15,6 +20,11 @@ interface WeatherData {
   low: number;
   isDay: boolean;
   hourly: { time: string; temp: number; code: number }[];
+}
+
+function anchorTopRight(): Pos {
+  const vw = document.documentElement.clientWidth;
+  return { x: Math.max(RIGHT, vw - WIDTH - RIGHT), y: TOP };
 }
 
 function conditionLabel(code: number): string {
@@ -66,12 +76,19 @@ function CondIcon({
 export function WeatherWidget() {
   const { t } = useI18n();
   const [data, setData] = useState<WeatherData | null>(null);
-  const [width, setWidth] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth : 1200,
-  );
+  const [pos, setPos] = useState<Pos | null>(null);
+  const dragged = useRef(false);
+  const drag = useRef<{ dx: number; dy: number } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onResize = () => setWidth(window.innerWidth);
+    setPos(anchorTopRight());
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (!dragged.current) setPos(anchorTopRight());
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -89,7 +106,7 @@ export function WeatherWidget() {
         };
         const nowIdx = Math.max(
           0,
-          j.hourly.time.findIndex((t) => new Date(t).getTime() >= Date.now()),
+          j.hourly.time.findIndex((tm) => new Date(tm).getTime() >= Date.now()),
         );
         const hourly = Array.from({ length: 8 }).map((_, i) => {
           const idx = Math.min(nowIdx + i, j.hourly.time.length - 1);
@@ -112,19 +129,44 @@ export function WeatherWidget() {
       }
     };
     load();
-    const i = window.setInterval(load, 15 * 60 * 1000);
-    return () => window.clearInterval(i);
+    const i = setInterval(load, 15 * 60 * 1000);
+    return () => clearInterval(i);
   }, []);
 
+  if (!pos) return null;
+
   const gradient = data ? conditionGradient(data.code, data.isDay) : "from-[#4aa3ff] to-[#a8d4ff]";
-  const x = Math.max(24, width - WIDTH - RIGHT);
 
   return (
     <div
-      style={{ left: x, top: TOP, zIndex: LAYERS.widget, width: WIDTH }}
-      className={`fixed rounded-2xl bg-linear-to-b ${gradient} border border-white/30 shadow-2xl p-3.5 text-white select-none overflow-hidden`}
+      ref={containerRef}
+      style={{ left: pos.x, top: pos.y, zIndex: LAYERS.widget, width: WIDTH }}
+      className={`fixed rounded-2xl bg-linear-to-b ${gradient} border border-white/30 shadow-2xl p-3.5 text-white select-none overflow-hidden animate-scale-in`}
     >
-      <div>
+      <div
+        className="cursor-grab active:cursor-grabbing"
+        onPointerDown={(e) => {
+          (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+          const rect = containerRef.current?.getBoundingClientRect();
+          drag.current = {
+            dx: e.clientX - (rect?.left ?? pos.x),
+            dy: e.clientY - (rect?.top ?? pos.y),
+          };
+        }}
+        onPointerMove={(e) => {
+          if (!drag.current) return;
+          dragged.current = true;
+          setPos({ x: e.clientX - drag.current.dx, y: e.clientY - drag.current.dy });
+        }}
+        onPointerUp={(e) => {
+          try {
+            (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+          } catch {
+            /* noop */
+          }
+          drag.current = null;
+        }}
+      >
         <div className="text-[13px] font-semibold leading-tight drop-shadow">
           {t("portoAlegre").split(",")[0]}
         </div>
@@ -136,7 +178,7 @@ export function WeatherWidget() {
           {data && <CondIcon code={data.code} isDay={data.isDay} className="w-8 h-8 drop-shadow" />}
         </div>
         <div className="mt-1 text-[11px] opacity-95">
-          {data ? conditionLabel(data.code) : "Loading..."}
+          {data ? conditionLabel(data.code) : "Loading…"}
         </div>
         {data && (
           <div className="text-[11px] opacity-80 tabular-nums">
@@ -152,7 +194,7 @@ export function WeatherWidget() {
             return (
               <div key={h.time} className="flex flex-col items-center gap-0.5 text-[10px]">
                 <div className="opacity-90">{label}</div>
-                <CondIcon code={h.code} isDay className="w-3.5 h-3.5" />
+                <CondIcon code={h.code} isDay={true} className="w-3.5 h-3.5" />
                 <div className="tabular-nums font-medium">{Math.round(h.temp)}°</div>
               </div>
             );
