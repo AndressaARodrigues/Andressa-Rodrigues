@@ -214,6 +214,7 @@ const EN = {
   trashSpam2: "Seriously, stop.",
   trashSpam3: "Fine, you win 🏳️",
   trashReturnMessage: "Relax, nothing gets deleted here 😌",
+  clickToUnlock: "Click or press any key to unlock",
 } as const;
 
 type Key = keyof typeof EN;
@@ -413,6 +414,8 @@ const PT: Record<Key, string> = {
   trashSpam2: "Sério, para.",
   trashSpam3: "Tá bom, você venceu 🏳️",
   trashReturnMessage: "Relaxa, nada é deletado de verdade aqui 😌",
+
+  clickToUnlock: "Clique ou aperte qualquer tecla para desbloquear",
 };
 
 const DICT: Record<Lang, Record<Key, string>> = { en: EN, "pt-BR": PT };

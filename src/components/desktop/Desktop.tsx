@@ -29,6 +29,8 @@ import { cn } from "@/lib/utils";
 import { WeatherApp } from "./apps/WeatherApp";
 import { PhotosWidget } from "./PhotosWidget";
 import { CheatModeProvider, useCheatMode } from "@/lib/cheatMode";
+import { IdleLockProvider } from "@/lib/idleLock";
+import { LockScreen } from "./LockScreen";
 
 export function Desktop() {
   return (
@@ -39,7 +41,9 @@ export function Desktop() {
             <CheatModeProvider>
               <MusicProvider>
                 <WindowProvider>
-                  <DesktopInner />
+                  <IdleLockProvider>
+                    <DesktopInner />
+                  </IdleLockProvider>
                 </WindowProvider>
               </MusicProvider>
             </CheatModeProvider>
@@ -116,6 +120,7 @@ function DesktopInner() {
       <WindowsLayer />
       <Dock onToggleMusic={musicWidget.toggle} musicVisible={musicWidget.visible} />
       <Spotlight open={spotlight} onClose={() => setSpotlight(false)} />
+      <LockScreen />
       <KonamiListener />
       {!booted && <BootScreen onDone={() => setBooted(true)} />}
     </div>
