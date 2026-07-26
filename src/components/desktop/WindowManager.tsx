@@ -1,7 +1,26 @@
-import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { playSound } from "@/lib/sounds";
 
-export type AppId = "finder" | "terminal" | "mail" | "pdf" | "solitaire" | "readme" | "music" | "messages" | "settings" | "imageviewer";
+export type AppId =
+  | "finder"
+  | "terminal"
+  | "mail"
+  | "pdf"
+  | "solitaire"
+  | "readme"
+  | "music"
+  | "messages"
+  | "settings"
+  | "imageviewer"
+  | "weather";
 
 export interface WindowState {
   id: string;
@@ -21,7 +40,10 @@ export interface WindowState {
 interface WindowContextValue {
   windows: WindowState[];
   active: WindowState | null;
-  open: (appId: AppId, opts?: { title?: string; data?: Record<string, unknown>; width?: number; height?: number }) => void;
+  open: (
+    appId: AppId,
+    opts?: { title?: string; data?: Record<string, unknown>; width?: number; height?: number },
+  ) => void;
   close: (id: string) => void;
   focus: (id: string) => void;
   minimize: (id: string) => void;
@@ -43,6 +65,7 @@ const APP_DEFAULT_TITLES: Record<AppId, string> = {
   messages: "Messages",
   settings: "System Settings",
   imageviewer: "Photos",
+  weather: "Weather",
 };
 
 export function WindowProvider({ children }: { children: ReactNode }) {

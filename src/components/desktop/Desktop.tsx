@@ -28,6 +28,7 @@ import { WallpaperProvider, useWallpaper } from "@/lib/wallpaper";
 import { CatModeProvider } from "@/lib/cat";
 import { LAYERS } from "@/lib/layers";
 import { cn } from "@/lib/utils";
+import { WeatherApp } from "./apps/WeatherApp";
 
 export function Desktop() {
   return (
@@ -193,6 +194,8 @@ function renderApp(appId: string, w: import("@/components/desktop/WindowManager"
       return <Settings />;
     case "imageviewer":
       return <ImageViewer window={w} />;
+    case "weather":
+      return <WeatherApp />;
     default:
       return null;
   }

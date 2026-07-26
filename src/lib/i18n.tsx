@@ -89,7 +89,7 @@ const EN = {
   portoAlegre: "Porto Alegre, BR",
   brazil: "Brazil",
   hourlyForecast: "Hourly Forecast",
-  dailyForecast: "10-Day Forecast",
+  dailyForecast: "7-Day Forecast",
   now: "Now",
   feelsLike: "Feels Like",
   humidity: "Humidity",
@@ -291,7 +291,7 @@ const PT: Record<Key, string> = {
   portoAlegre: "Porto Alegre, BR",
   brazil: "Brasil",
   hourlyForecast: "Previsão por Hora",
-  dailyForecast: "Previsão de 10 Dias",
+  dailyForecast: "Previsão de 7 Dias",
   now: "Agora",
   feelsLike: "Sensação",
   humidity: "Umidade",
@@ -366,7 +366,7 @@ const PT: Record<Key, string> = {
   documents: "Documentos",
 
   stickyWelcome:
-    "Oi, eu sou a Andressa 👋\nBem-vindo(a) à minha mesa. Abra os apps, explore as pastas e experimente o Terminal. Divirta-se!",
+    "Oi, eu sou a Andressa 👋\nBem-vindo(a) à minha área de trabalho. Abra os apps, explore as pastas e experimente o Terminal. Divirta-se!",
   closeStickyNote: "Fechar o post-it",
   skipBoot: "clique em qualquer lugar para pular",
 
