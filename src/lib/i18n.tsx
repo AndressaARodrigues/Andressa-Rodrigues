@@ -205,9 +205,15 @@ const EN = {
   termUsageCd: "usage: cd [folder]",
   termUsageCat: "usage: cat [file]",
   termCoffee: "Brewing… ☕ (this shell is not a coffee machine, but it tries)",
+
   thisIsMe: "This is me!",
   aboutTitle: "About Me",
   educationTitle: "Education",
+
+  trashSpam1: "Hey, cut it out 😤",
+  trashSpam2: "Seriously, stop.",
+  trashSpam3: "Fine, you win 🏳️",
+  trashReturnMessage: "Relax, nothing gets deleted here 😌",
 } as const;
 
 type Key = keyof typeof EN;
@@ -398,9 +404,15 @@ const PT: Record<Key, string> = {
   termUsageCd: "uso: cd [pasta]",
   termUsageCat: "uso: cat [arquivo]",
   termCoffee: "Preparando… ☕ (este shell não é uma cafeteira, mas se esforça)",
+
   thisIsMe: "Esta sou eu!",
   aboutTitle: "Sobre Mim",
   educationTitle: "Educação",
+
+  trashSpam1: "Ei, para com isso 😤",
+  trashSpam2: "Sério, para.",
+  trashSpam3: "Tá bom, você venceu 🏳️",
+  trashReturnMessage: "Relaxa, nada é deletado de verdade aqui 😌",
 };
 
 const DICT: Record<Lang, Record<Key, string>> = { en: EN, "pt-BR": PT };

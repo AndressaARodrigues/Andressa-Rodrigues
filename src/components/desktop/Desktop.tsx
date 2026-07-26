@@ -19,17 +19,16 @@ import { MusicWidget, useMusicWidgetVisible } from "@/components/desktop/MusicWi
 import { BootScreen } from "@/components/desktop/BootScreen";
 import { StickyNote } from "@/components/desktop/StickyNote";
 import { Spotlight } from "@/components/desktop/Spotlight";
-import { CatChase } from "@/components/desktop/CatChase";
 import { ThemeProvider, useTheme } from "@/lib/theme";
 import { I18nProvider } from "@/lib/i18n";
 import { MusicProvider, useMusic } from "@/lib/music";
 import { SoundsProvider, useSounds, registerExternalPlayer } from "@/lib/sounds";
 import { WallpaperProvider, useWallpaper } from "@/lib/wallpaper";
-import { CatModeProvider } from "@/lib/cat";
 import { LAYERS } from "@/lib/layers";
 import { cn } from "@/lib/utils";
 import { WeatherApp } from "./apps/WeatherApp";
 import { PhotosWidget } from "./PhotosWidget";
+import { CheatModeProvider, useCheatMode } from "@/lib/cheatMode";
 
 export function Desktop() {
   return (
@@ -37,13 +36,13 @@ export function Desktop() {
       <I18nProvider>
         <WallpaperProvider>
           <SoundsProvider>
-            <CatModeProvider>
+            <CheatModeProvider>
               <MusicProvider>
                 <WindowProvider>
                   <DesktopInner />
                 </WindowProvider>
               </MusicProvider>
-            </CatModeProvider>
+            </CheatModeProvider>
           </SoundsProvider>
         </WallpaperProvider>
       </I18nProvider>
@@ -114,7 +113,6 @@ function DesktopInner() {
       <PhotosWidget />
       <DesktopIcons />
       {booted && welcomeOpen && <StickyNote key={welcomeKey} onClose={closeWelcome} />}
-      <CatChase />
       <WindowsLayer />
       <Dock onToggleMusic={musicWidget.toggle} musicVisible={musicWidget.visible} />
       <Spotlight open={spotlight} onClose={() => setSpotlight(false)} />
@@ -218,6 +216,7 @@ const KONAMI = [
 
 function KonamiListener() {
   const { open } = useWindows();
+  const { trigger } = useCheatMode();
   const [party, setParty] = useState(false);
 
   useEffect(() => {
@@ -228,6 +227,7 @@ function KonamiListener() {
       (window as Window & { __konamiBuffer?: string[] }).__konamiBuffer = next;
       if (next.length === KONAMI.length && next.every((v, i) => v === KONAMI[i])) {
         setParty(true);
+        trigger();
         window.setTimeout(() => setParty(false), 4000);
       }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "t") {
@@ -241,7 +241,7 @@ function KonamiListener() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, trigger]);
 
   return (
     <div
