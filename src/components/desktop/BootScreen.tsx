@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Apple } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/lib/i18n";
 
 export function BootScreen({ onDone }: { onDone: () => void }) {
   const { resolved } = useTheme();
   const [progress, setProgress] = useState(0);
   const [leaving, setLeaving] = useState(false);
+  const { t } = useI18n();
 
   useEffect(() => {
     const start = performance.now();
@@ -52,7 +54,7 @@ export function BootScreen({ onDone }: { onDone: () => void }) {
           style={{ width: `${Math.round(progress * 100)}%` }}
         />
       </div>
-      <div className="mt-6 text-xs opacity-50 tracking-wide">click anywhere to skip</div>
+      <div className="mt-6 text-xs opacity-50 tracking-wide">{t("skipBoot")}</div>
     </div>
   );
 }

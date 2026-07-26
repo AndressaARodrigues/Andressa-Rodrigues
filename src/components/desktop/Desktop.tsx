@@ -29,6 +29,7 @@ import { CatModeProvider } from "@/lib/cat";
 import { LAYERS } from "@/lib/layers";
 import { cn } from "@/lib/utils";
 import { WeatherApp } from "./apps/WeatherApp";
+import { PhotosWidget } from "./PhotosWidget";
 
 export function Desktop() {
   return (
@@ -110,6 +111,7 @@ function DesktopInner() {
           musicWidget.set(false);
         }}
       />
+      <PhotosWidget />
       <DesktopIcons />
       {booted && welcomeOpen && <StickyNote key={welcomeKey} onClose={closeWelcome} />}
       <CatChase />

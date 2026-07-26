@@ -173,7 +173,7 @@ const EN = {
   stickyWelcome:
     "Hi, I'm Andressa 👋\nWelcome to my desktop. Open the apps, poke around the folders, and try the Terminal. Enjoy!",
   closeStickyNote: "Close sticky note",
-  skipBoot: "click anywhere to skip",
+  skipBoot: "Click to skip",
 
   // ── Solitaire ────────────────────────────────────────────────────
   newGame: "New Game",
@@ -368,7 +368,7 @@ const PT: Record<Key, string> = {
   stickyWelcome:
     "Oi, eu sou a Andressa 👋\nBem-vindo(a) à minha área de trabalho. Abra os apps, explore as pastas e experimente o Terminal. Divirta-se!",
   closeStickyNote: "Fechar o post-it",
-  skipBoot: "clique em qualquer lugar para pular",
+  skipBoot: "Clique para sair",
 
   newGame: "Novo Jogo",
   score: "Pontos",
