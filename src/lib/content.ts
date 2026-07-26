@@ -561,3 +561,96 @@ Furthermore, she has a **broad product perspective**, contributing to the creati
     },
   },
 ];
+
+export interface ResumeJob {
+  title: Loc;
+  company: string;
+  years: Loc;
+  bullets: Loc[];
+}
+
+export const RESUME_ABOUT: Loc = {
+  en: "Full Stack Developer with 3+ years of experience, currently pursuing a Master's in Software Engineering focused on AI applied to intelligent tutoring systems. Comfortable across the stack, from React/Vue frontends to Node.js and Python backends.",
+  "pt-BR":
+    "Desenvolvedora Full Stack com mais de 3 anos de experiência, atualmente cursando mestrado em Engenharia de Software com foco em IA aplicada a sistemas tutores inteligentes. Confortável em toda a stack, de frontends em React/Vue a backends em Node.js e Python.",
+};
+
+export const RESUME_JOBS: ResumeJob[] = [
+  {
+    title: { en: "Software Developer", "pt-BR": "Desenvolvedora de Software" },
+    company: "Nelogica",
+    years: { en: "2024 — Present", "pt-BR": "2024 — Atual" },
+    bullets: [
+      {
+        en: "Work on Profit Web, the company's main product, plus smaller broker-related projects.",
+        "pt-BR":
+          "Atuação no Profit Web, principal produto da empresa, além de projetos menores ligados a corretoras.",
+      },
+    ],
+  },
+  {
+    title: { en: "Frontend Intern", "pt-BR": "Estagiária de Frontend" },
+    company: "Compass UOL",
+    years: { en: "2023 (6 months)", "pt-BR": "2023 (6 meses)" },
+    bullets: [
+      {
+        en: "Built and maintained frontend features across client projects.",
+        "pt-BR":
+          "Desenvolvimento e manutenção de funcionalidades de frontend em projetos de clientes.",
+      },
+    ],
+  },
+  {
+    title: { en: "Fullstack Intern", "pt-BR": "Estagiária Fullstack" },
+    company: "Universidade Federal do Pampa",
+    years: { en: "2022 — 2023 (9 months)", "pt-BR": "2022 — 2023 (9 meses)" },
+    bullets: [
+      {
+        en: "Built an academic scoring system for faculty production.",
+        "pt-BR": "Desenvolvimento de um sistema de pontuação acadêmica para produção docente.",
+      },
+    ],
+  },
+];
+
+export const RESUME_SKILLS: { label: Loc; value: string }[] = [
+  {
+    label: { en: "Frontend", "pt-BR": "Frontend" },
+    value: "Vue.js · React.js · Next.js · TypeScript · JavaScript",
+  },
+  {
+    label: { en: "Backend", "pt-BR": "Backend" },
+    value: "Node.js · Python · Flask · PHP · CodeIgniter · REST · GraphQL",
+  },
+  { label: { en: "Data", "pt-BR": "Dados" }, value: "MySQL · MongoDB · MariaDB" },
+  {
+    label: { en: "Cloud / DevOps", "pt-BR": "Cloud / DevOps" },
+    value: "AWS · Docker · Kubernetes · CI/CD · Git",
+  },
+  {
+    label: { en: "Practices", "pt-BR": "Práticas" },
+    value: "Scrum · Kanban · Code Review · Testing · System Design",
+  },
+];
+
+export interface ResumeEducation {
+  course: Loc;
+  institution: string;
+  years: Loc;
+}
+
+export const RESUME_EDUCATION: ResumeEducation[] = [
+  {
+    course: {
+      en: "M.Sc. in Software Engineering (in progress)",
+      "pt-BR": "Mestrado em Engenharia de Software (em andamento)",
+    },
+    institution: "Universidade Federal do Pampa",
+    years: { en: "2024 — Present", "pt-BR": "2024 — Atual" },
+  },
+  {
+    course: { en: "B.Sc. in Computer Science", "pt-BR": "Bacharelado em Ciência da Computação" },
+    institution: "Universidade Federal do Pampa",
+    years: { en: "2018 — 2023", "pt-BR": "2018 — 2023" },
+  },
+];

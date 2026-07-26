@@ -206,6 +206,8 @@ const EN = {
   termUsageCat: "usage: cat [file]",
   termCoffee: "Brewing… ☕ (this shell is not a coffee machine, but it tries)",
   thisIsMe: "This is me!",
+  aboutTitle: "About Me",
+  educationTitle: "Education",
 } as const;
 
 type Key = keyof typeof EN;
@@ -397,6 +399,8 @@ const PT: Record<Key, string> = {
   termUsageCat: "uso: cat [arquivo]",
   termCoffee: "Preparando… ☕ (este shell não é uma cafeteira, mas se esforça)",
   thisIsMe: "Esta sou eu!",
+  aboutTitle: "Sobre Mim",
+  educationTitle: "Educação",
 };
 
 const DICT: Record<Lang, Record<Key, string>> = { en: EN, "pt-BR": PT };
