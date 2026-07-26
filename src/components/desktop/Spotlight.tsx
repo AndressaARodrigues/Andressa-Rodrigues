@@ -32,7 +32,12 @@ export function Spotlight({ open, onClose }: { open: boolean; onClose: () => voi
   const items = useMemo<Result[]>(() => {
     const list: Result[] = [];
     const app = (id: AppId, label: string, sub: string, data?: Record<string, unknown>) =>
-      list.push({ id: `app-${id}-${label}`, label, sub, action: () => openWin(id, data ? { data } : undefined) });
+      list.push({
+        id: `app-${id}-${label}`,
+        label,
+        sub,
+        action: () => openWin(id, data ? { data } : undefined),
+      });
 
     app("finder", t("finder"), "Application");
     app("terminal", t("terminal"), "Application");
@@ -51,11 +56,27 @@ export function Spotlight({ open, onClose }: { open: boolean; onClose: () => voi
       } else {
         const parent = path.slice(1).join("/") || "~";
         if (node.kind === "pdf") {
-          list.push({ id: `f-${path.join("/")}/${node.name}`, label: node.name, sub: `PDF · ${parent}`, action: () => openWin("pdf") });
+          list.push({
+            id: `f-${path.join("/")}/${node.name}`,
+            label: node.name,
+            sub: `PDF · ${parent}`,
+            action: () => openWin("pdf"),
+          });
         } else if (node.kind === "image") {
-          list.push({ id: `f-${path.join("/")}/${node.name}`, label: node.name, sub: `Photo · ${parent}`, action: () => openWin("imageviewer", { data: { src: node.src, caption: node.caption } }) });
+          list.push({
+            id: `f-${path.join("/")}/${node.name}`,
+            label: node.name,
+            sub: `Photo · ${parent}`,
+            action: () =>
+              openWin("imageviewer", { data: { src: node.src, caption: node.caption } }),
+          });
         } else {
-          list.push({ id: `f-${path.join("/")}/${node.name}`, label: node.name, sub: `File · ${parent}`, action: () => openWin("finder", { data: { path } }) });
+          list.push({
+            id: `f-${path.join("/")}/${node.name}`,
+            label: node.name,
+            sub: `File · ${parent}`,
+            action: () => openWin("finder", { data: { path } }),
+          });
         }
       }
     };
@@ -66,10 +87,14 @@ export function Spotlight({ open, onClose }: { open: boolean; onClose: () => voi
   const filtered = useMemo(() => {
     if (!q.trim()) return items.slice(0, 8);
     const needle = q.toLowerCase();
-    return items.filter((i) => i.label.toLowerCase().includes(needle) || i.sub.toLowerCase().includes(needle)).slice(0, 10);
+    return items
+      .filter((i) => i.label.toLowerCase().includes(needle) || i.sub.toLowerCase().includes(needle))
+      .slice(0, 10);
   }, [items, q]);
 
-  useEffect(() => { setSel(0); }, [q]);
+  useEffect(() => {
+    setSel(0);
+  }, [q]);
 
   if (!open) return null;
 
@@ -83,8 +108,10 @@ export function Spotlight({ open, onClose }: { open: boolean; onClose: () => voi
 
   return (
     <div
-      className="fixed inset-0 z-[2500] flex items-start justify-center pt-[18vh] bg-black/20 backdrop-blur-md animate-fade-in"
-      onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      className="fixed inset-0 z-2500 flex items-start justify-center pt-[18vh] bg-black/20 backdrop-blur-md animate-fade-in"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div className="w-[min(640px,92vw)] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-2xl animate-scale-in">
         <div className="flex items-center gap-3 px-4 py-3 border-b border-black/5 dark:border-white/10">
@@ -94,10 +121,19 @@ export function Spotlight({ open, onClose }: { open: boolean; onClose: () => voi
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "ArrowDown") { e.preventDefault(); setSel((s) => Math.min(filtered.length - 1, s + 1)); }
-              else if (e.key === "ArrowUp") { e.preventDefault(); setSel((s) => Math.max(0, s - 1)); }
-              else if (e.key === "Enter") { e.preventDefault(); commit(sel); }
-              else if (e.key === "Escape") { e.preventDefault(); onClose(); }
+              if (e.key === "ArrowDown") {
+                e.preventDefault();
+                setSel((s) => Math.min(filtered.length - 1, s + 1));
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                setSel((s) => Math.max(0, s - 1));
+              } else if (e.key === "Enter") {
+                e.preventDefault();
+                commit(sel);
+              } else if (e.key === "Escape") {
+                e.preventDefault();
+                onClose();
+              }
             }}
             placeholder={t("spotlightPlaceholder")}
             className="flex-1 bg-transparent outline-none text-lg placeholder:opacity-40 text-foreground"
@@ -112,11 +148,17 @@ export function Spotlight({ open, onClose }: { open: boolean; onClose: () => voi
                 onClick={() => commit(i)}
                 className={cn(
                   "w-full text-left px-4 py-2 flex items-center justify-between gap-4",
-                  i === sel ? "bg-blue-500 text-white" : "hover:bg-black/5 dark:hover:bg-white/5 text-foreground",
+                  i === sel
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-black/5 dark:hover:bg-white/5 text-foreground",
                 )}
               >
                 <span className="truncate font-medium">{r.label}</span>
-                <span className={cn("text-xs truncate", i === sel ? "text-white/80" : "opacity-60")}>{r.sub}</span>
+                <span
+                  className={cn("text-xs truncate", i === sel ? "text-white/80" : "opacity-60")}
+                >
+                  {r.sub}
+                </span>
               </button>
             ))}
           </div>

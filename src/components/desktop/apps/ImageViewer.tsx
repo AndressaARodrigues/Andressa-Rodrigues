@@ -5,7 +5,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function ImageViewer({ window: w }: { window: WindowState }) {
   const startId = (w.data?.pictureId as string | undefined) ?? PICTURES[0].id;
-  const startIdx = Math.max(0, PICTURES.findIndex((p) => p.id === startId));
+  const startIdx = Math.max(
+    0,
+    PICTURES.findIndex((p) => p.id === startId),
+  );
   const [i, setI] = useState(startIdx);
   const pic = PICTURES[i];
 
@@ -24,7 +27,7 @@ export function ImageViewer({ window: w }: { window: WindowState }) {
         <img
           key={pic.id}
           src={pic.src}
-          alt={pic.caption}
+          alt={pic.caption.en}
           className="max-w-full max-h-full object-contain animate-fade-in"
         />
         <button
@@ -41,8 +44,10 @@ export function ImageViewer({ window: w }: { window: WindowState }) {
         </button>
       </div>
       <div className="px-4 py-3 text-center text-sm bg-black/60">
-        <div>{pic.caption}</div>
-        <div className="text-[11px] opacity-60 mt-0.5">{i + 1} / {PICTURES.length}</div>
+        <div>{pic.caption.en}</div>
+        <div className="text-[11px] opacity-60 mt-0.5">
+          {i + 1} / {PICTURES.length}
+        </div>
       </div>
     </div>
   );

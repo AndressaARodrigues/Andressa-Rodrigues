@@ -55,7 +55,7 @@ export function MenuBar({
 
   return (
     <div
-      className="fixed top-0 inset-x-0 h-7 text-white text-[13px] flex items-center px-3 gap-4 select-none border-b border-white/10 bg-black/40 backdrop-blur-xl"
+      className="fixed top-0 inset-x-0 h-7 text-black dark:text-white text-[13px] flex items-center px-3 gap-4 select-none border-b border-white/40 dark:border-white/15 bg-white/25 dark:bg-white/10 backdrop-blur-2xl shadow-2xl"
       style={{ zIndex: LAYERS.overlay }}
     >
       <div className="flex items-center gap-4" ref={menuRef}>

@@ -78,7 +78,7 @@ export function MusicWidget({ visible, onClose }: { visible: boolean; onClose: (
     <div
       ref={containerRef}
       style={{ left: pos.x, top: pos.y, width: WIDTH, zIndex: LAYERS.widget + 1 }}
-      className="fixed rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-2xl text-foreground overflow-hidden select-none animate-scale-in"
+      className="fixed rounded-2xl bg-white/25 dark:bg-white/10 backdrop-blur-2xl border border-white/40 dark:border-white/15 shadow-2xl text-foreground overflow-hidden select-none animate-scale-in"
     >
       <div
         className="flex items-center gap-3 p-3 cursor-grab active:cursor-grabbing"

@@ -2,8 +2,6 @@ import { useMemo, useState } from "react";
 import { filesystem, findNodeByPath, type FSNode } from "@/lib/filesystem";
 import { useWindows, type WindowState } from "../WindowManager";
 import {
-  File as FileIcon,
-  FileText,
   ChevronRight,
   LayoutGrid,
   List,
@@ -14,7 +12,10 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PinkFolder } from "../PinkFolder";
+import { FileText } from "../FileText";
+import { FilePdf } from "../FilePdf";
 import { useI18n } from "@/lib/i18n";
+import { useTheme } from "@/lib/theme";
 
 export function Finder({ window: w }: { window: WindowState }) {
   const { updateData, open } = useWindows();
@@ -175,9 +176,15 @@ export function Finder({ window: w }: { window: WindowState }) {
 }
 
 function NodeIcon({ node, large }: { node: FSNode; large?: boolean }) {
+  const { resolved } = useTheme();
+  const shadow =
+    resolved === "dark"
+      ? "drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]"
+      : "drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]";
+
   const size = large ? "w-12 h-12" : "w-5 h-5";
   if (node.type === "folder") return <PinkFolder className={large ? "w-12 h-10" : "w-5 h-4"} />;
-  if (node.kind === "pdf") return <FileText className={cn(size, "text-red-500")} />;
+  if (node.kind === "pdf") return <FilePdf className={cn(size, shadow)} />;
   if (node.kind === "image") {
     return (
       <div
@@ -194,5 +201,5 @@ function NodeIcon({ node, large }: { node: FSNode; large?: boolean }) {
       </div>
     );
   }
-  return <FileIcon className={cn(size, "text-neutral-500")} />;
+  return <FileText className={cn(size, shadow)} />;
 }
