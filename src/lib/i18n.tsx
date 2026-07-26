@@ -205,9 +205,7 @@ const EN = {
   termUsageCd: "usage: cd [folder]",
   termUsageCat: "usage: cat [file]",
   termCoffee: "Brewing… ☕ (this shell is not a coffee machine, but it tries)",
-
-  // ── Misc ─────────────────────────────────────────────────────────
-  readmeContent: "",
+  thisIsMe: "This is me!",
 } as const;
 
 type Key = keyof typeof EN;
@@ -398,8 +396,7 @@ const PT: Record<Key, string> = {
   termUsageCd: "uso: cd [pasta]",
   termUsageCat: "uso: cat [arquivo]",
   termCoffee: "Preparando… ☕ (este shell não é uma cafeteira, mas se esforça)",
-
-  readmeContent: "",
+  thisIsMe: "Esta sou eu!",
 };
 
 const DICT: Record<Lang, Record<Key, string>> = { en: EN, "pt-BR": PT };

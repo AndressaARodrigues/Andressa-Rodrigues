@@ -469,30 +469,54 @@ export const SECRETS_CONTENT: Loc = {
 export const README_CONTENT: Loc = {
   en: `# Hey, I'm Andressa 👋
 
-Product designer & developer based in Porto Alegre, BR.
+Software Engineer in Porto Alegre, BR.
 
 ## About
-I build interfaces that feel alive — expressive, calm, and a little playful. I love the intersection of craft, code, and story.
+
+
+Developer for **3+ years**, with a degree in Computer Science and currently pursuing a Master's in **Software Engineering**.
+
+For my Master's, I research **AI applied to educational systems** — bridging hands-on development experience with academic research.
+
+I like taking complex problems (business or research) and turning them into *simple, functional* solutions that people actually use.
+
+
+**Main stack:** \`Vue.js\` · \`React\` · \`TypeScript\` · \`Node.js\` · \`Python\`
+
 
 ## Links
+
+
 - Email — andressa.rodrigues19@outlook.com
-- LinkedIn — /in/andressa
-- GitHub — /andressa
+- LinkedIn — [/in/andressaar](https://linkedin.com/in/andressaar)
+- GitHub — [/AndressaARodrigues](https://github.com/AndressaARodrigues)
 
-*Open folders on the desktop to explore experience, projects, and adventures.*`,
-  "pt-BR": `# Oi, eu sou a Andressa 👋
+*Open the folders on the desktop to explore experience, projects, and other adventures.*
+`,
+  "pt-BR": `# Hey, Eu sou a Andressa 👋
 
-Designer de produto e desenvolvedora em Porto Alegre, BR.
+Desenvolvedora de Software em Porto Alegre, BR.
 
-## Sobre
-Crio interfaces vivas — expressivas, calmas e um pouco divertidas. Amo a interseção entre ofício, código e história.
+## About
+
+
+Desenvolvedora há **mais de 3 anos**, formada em Ciência da Computação e mestranda em **Engenharia de Software**.
+
+No mestrado, pesquiso **IA aplicada a sistemas educacionais** — unindo experiência prática de desenvolvimento com investigação acadêmica.
+
+Gosto de pegar problemas complexos (de negócio ou de pesquisa) e transformar em soluções *simples, funcionais* e que as pessoas realmente usam.
+
+
+**Stack principal:** \`Vue.js\` · \`React\` · \`TypeScript\` · \`Node.js\` · \`Python\`
 
 ## Links
-- E-mail — andressa.rodrigues19@outlook.com
-- LinkedIn — /in/andressa
-- GitHub — /andressa
 
-*Abra as pastas na area de trabalho para ver experiência, projetos e aventuras.*`,
+
+- Email — andressa.rodrigues19@outlook.com
+- LinkedIn — [/in/andressaar](https://linkedin.com/in/andressaar)
+- GitHub — [/AndressaARodrigues](https://github.com/AndressaARodrigues)
+
+*Abra as pastas na área de trabalho para explorar experiência, projetos e outras aventuras.*`,
 };
 
 export interface RecommendationEmail {
