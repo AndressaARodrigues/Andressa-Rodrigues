@@ -11,6 +11,17 @@ import {
   SECRETS_CONTENT,
   README_CONTENT,
 } from "@/lib/content";
+import university from "@/assets/pictures/unipampa.jpg";
+import degree from "@/assets/pictures/degree.jpg";
+import coffee from "@/assets/pictures/coffee-in-beach.jpg";
+import sunrise from "@/assets/pictures/sunrise.jpg";
+import ravena from "@/assets/pictures/ravena.jpg";
+import batman from "@/assets/pictures/batman.jpg";
+import eres from "@/assets/pictures/unipampa-in-eres.jpg";
+import work from "@/assets/pictures/work.jpg";
+import tcc from "@/assets/pictures/tcc.jpg";
+import me from "@/assets/pictures/me.jpg";
+import ppges from "@/assets/pictures/ppges.jpg";
 
 export type Lang = "en" | "pt-BR";
 
@@ -53,35 +64,78 @@ export interface Picture {
 export const PICTURES: Picture[] = [
   {
     id: "p1",
-    src: "https://picsum.photos/seed/andressa-work-1/900/1200",
-    caption: { en: "Design sprint at the studio", "pt-BR": "Design sprint no estúdio" },
+    src: university,
+    caption: {
+      en: "Universidade Federal do Pampa, Campus Alegrete",
+      "pt-BR": "Universidade Federal do Pampa, Campus Alegrete",
+    },
   },
   {
     id: "p2",
-    src: "https://picsum.photos/seed/andressa-uni-1/900/1200",
-    caption: { en: "Graduation day, UFRGS", "pt-BR": "Formatura, UFRGS" },
+    src: degree,
+    caption: { en: "Graduation day, UNIPAMPA", "pt-BR": "Formatura, UNIPAMPA" },
   },
   {
     id: "p3",
-    src: "https://picsum.photos/seed/andressa-event-1/1200/900",
-    caption: { en: "Speaking at UX Porto Alegre", "pt-BR": "Palestrando no UX Porto Alegre" },
+    src: coffee,
+    caption: { en: "Morning coffee at the beach", "pt-BR": "Café da manhã na praia" },
   },
   {
     id: "p4",
-    src: "https://picsum.photos/seed/andressa-work-2/1200/900",
-    caption: { en: "Team offsite, coastal Brazil", "pt-BR": "Offsite do time, litoral brasileiro" },
+    src: tcc,
+    caption: { en: "", "pt-BR": "" },
   },
   {
     id: "p5",
-    src: "https://picsum.photos/seed/andressa-uni-2/900/1200",
-    caption: { en: "Late nights at the lab", "pt-BR": "Madrugadas no laboratório" },
+    src: sunrise,
+    caption: { en: "", "pt-BR": "" },
   },
   {
     id: "p6",
-    src: "https://picsum.photos/seed/andressa-event-2/1200/900",
+    src: ravena,
     caption: {
-      en: "Meetup dinner with the community",
-      "pt-BR": "Jantar de meetup com a comunidade",
+      en: "",
+      "pt-BR": "",
+    },
+  },
+  {
+    id: "p7",
+    src: batman,
+    caption: {
+      en: "",
+      "pt-BR": "",
+    },
+  },
+  {
+    id: "p8",
+    src: eres,
+    caption: {
+      en: "",
+      "pt-BR": "",
+    },
+  },
+  {
+    id: "p9",
+    src: work,
+    caption: {
+      en: "",
+      "pt-BR": "",
+    },
+  },
+  {
+    id: "p10",
+    src: me,
+    caption: {
+      en: "",
+      "pt-BR": "",
+    },
+  },
+  {
+    id: "p11",
+    src: ppges,
+    caption: {
+      en: "",
+      "pt-BR": "",
     },
   },
 ];

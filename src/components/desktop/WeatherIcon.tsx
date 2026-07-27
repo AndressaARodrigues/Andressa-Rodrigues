@@ -1,10 +1,10 @@
-import sun from "@/assets/icons/sun.png";
-import sunCloudy from "@/assets/icons/sunCloudy.png";
-import cloud from "@/assets/icons/cloudy.png";
-import rain from "@/assets/icons/rain.png";
-import storm from "@/assets/icons/storm.png";
-import snow from "@/assets/icons/snow.png";
-import wind from "@/assets/icons/wind.png";
+import sun from "@/assets/weather/sun.png";
+import sunCloudy from "@/assets/weather/sunCloudy.png";
+import cloud from "@/assets/weather/cloudy.png";
+import rain from "@/assets/weather/rain.png";
+import storm from "@/assets/weather/storm.png";
+import snow from "@/assets/weather/snow.png";
+import wind from "@/assets/weather/wind.png";
 
 const ICONS = {
   clear: sun,

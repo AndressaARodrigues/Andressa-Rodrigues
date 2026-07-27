@@ -5,6 +5,7 @@ import { useWallpaper } from "@/lib/wallpaper";
 import { useTheme } from "@/lib/theme";
 import { LAYERS } from "@/lib/layers";
 import { cn } from "@/lib/utils";
+import avatar from "@/assets/andressa-rodrigues.jpg";
 
 const UNLOCK_ANIM_MS = 500;
 const ROUNDED_FONT = "'Nunito', system-ui, sans-serif";
@@ -97,10 +98,14 @@ export function LockScreen() {
         className="absolute bottom-[20%] inset-x-0 flex flex-col items-center gap-2"
         style={{ fontFamily: ROUNDED_FONT }}
       >
-        <div className="w-16 h-16 rounded-full bg-linear-to-br from-pink-300 to-fuchsia-500 flex items-center justify-center text-white text-xl font-bold shadow-xl ring-2 ring-white/40">
-          A
+        <div className="w-24 h-24 rounded-full bg-linear-to-br from-pink-300 to-fuchsia-500 flex items-center justify-center text-white text-xl font-bold shadow-xl ring-2 ring-white/40">
+          <img
+            src={avatar}
+            alt="Andressa"
+            className="w-24 h-24 rounded-full object-cover ring-2 ring-pink-300 shadow-md"
+          />
         </div>
-        <div className="text-white text-sm font-semibold drop-shadow">Andressa</div>
+        <div className="text-white text-sm font-semibold drop-shadow">Andressa Rodrigues</div>
         <div className="text-white/70 text-xs font-medium">{t("clickToUnlock")}</div>
       </div>
     </div>

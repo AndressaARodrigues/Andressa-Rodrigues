@@ -4,7 +4,7 @@ import type { WindowState } from "../WindowManager";
 import { useI18n } from "@/lib/i18n";
 import { Markdown } from "@/components/desktop/Markdown";
 import { README_CONTENT } from "@/lib/content";
-import avatar from "@/assets/user.avif";
+import avatar from "@/assets/andressa-rodrigues.jpg";
 
 export function Readme({ window: w }: { window: WindowState }) {
   const path = (w.data?.path as string[] | undefined) ?? ["readme.md"];
