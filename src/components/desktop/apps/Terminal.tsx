@@ -67,7 +67,7 @@ export function Terminal({ window: w }: { window: WindowState }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [matrix]);
 
-  const prompt = `alex@portfolio ~${cwd.length ? "/" + cwd.join("/") : ""} $`;
+  const prompt = `andressa@portfolio ~${cwd.length ? "/" + cwd.join("/") : ""} $`;
 
   const run = (raw: string) => {
     const cmd = raw.trim();

@@ -4,13 +4,13 @@ import { Desktop } from "@/components/desktop/Desktop";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Alex Placeholder — Desktop Portfolio" },
+      { title: "Andressa Rodrigues — Desktop Portfolio" },
       {
         name: "description",
         content:
           "An interactive macOS-inspired desktop portfolio. Open apps, browse folders, and discover hidden commands in the terminal.",
       },
-      { property: "og:title", content: "Alex Placeholder — Desktop Portfolio" },
+      { property: "og:title", content: "Andressa Rodrigues — Desktop Portfolio" },
       {
         property: "og:description",
         content:
